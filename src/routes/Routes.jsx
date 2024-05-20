@@ -39,12 +39,13 @@ export const router = createBrowserRouter([
     ],
   },
   {
-    path: "/settings",
+    path: "/:orgId/settings",
     element: (
       <PrivateRoute>
         <SettingLayout />
       </PrivateRoute>
     ),
+    loader: ({ params }) => params?.orgId,
     children: [
       {
         path: "",

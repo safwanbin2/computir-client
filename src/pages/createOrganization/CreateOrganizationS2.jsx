@@ -1,9 +1,46 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import rantirBlack from "../../assets/logos/rantirBlack.svg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { RiArrowLeftSLine } from "react-icons/ri";
+import { AuthContext } from "../../contexts/AuthContext/AuthProvider";
+import { useForm } from "react-hook-form";
+import config from "../../config";
 
 const CreateOrganizationS2 = () => {
+  const [loading, setLoading] = useState(false);
+  const { newOrgInfo, setNewOrgInfo, user, userDB } = useContext(AuthContext);
+  const { register, handleSubmit } = useForm();
+  const navigate = useNavigate();
+
+  const createOrgS2 = (data) => {
+    setLoading(true);
+    const newOrg = {
+      ...newOrgInfo,
+      members: [data?.members],
+      orgEmail: user?.email || userDB?.email,
+      orgOwnerId: userDB?._id,
+      orgOwnerEmail: user?.email || userDB?.email,
+    };
+
+    fetch(`${config?.base_url}/organizations/create-organization`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(newOrg),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setLoading(false);
+        navigate("/");
+        window.location.reload();
+      })
+      .catch((err) => {
+        setLoading(false);
+        console.log(err);
+      });
+  };
+
   return (
     <div className="min-h-screen w-full flex justify-center items-center relative">
       <div className="absolute top-0 left-0 w-full h-14 border-b shadow-sm">
@@ -13,7 +50,7 @@ const CreateOrganizationS2 = () => {
           </Link>
           <div className="text-sm">
             <p className="text-gray-500">Logged in as</p>
-            <p className="font-semibold">hello@saas-ii.dev</p>
+            <p className="font-semibold">{user?.email}</p>
           </div>
         </div>
       </div>
@@ -33,23 +70,25 @@ const CreateOrganizationS2 = () => {
           </div>
         </div>
         <div>
-          <form className="space-y-4">
+          <form onSubmit={handleSubmit(createOrgS2)} className="space-y-4">
             <div className="space-y-2">
-              <label htmlFor="orgName">Email addresses</label>
-              <textarea
-                className="border-2 p-1 rounded-lg w-full h-32"
-                type="text"
+              <label htmlFor="orgName">Email address</label>
+              <input
+                className="border-2 p-1 rounded-lg w-full h-16"
+                type="email"
                 name="orgName"
+                {...register("members")}
               />
             </div>
 
             <div className="w-full">
-              <Link
-                to={"/create-organization-s2"}
+              <button
+                // to={"/create-organization-s2"}
+                type="submit"
                 className="bg-violet-500 text-white w-full font-semibold text-sm p-2 rounded-lg inline-block text-center"
               >
-                Continue
-              </Link>
+                {loading ? "Creating..." : "Continue"}
+              </button>
             </div>
           </form>
         </div>

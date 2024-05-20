@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import {
   AppShell,
@@ -7,7 +7,6 @@ import {
   SidebarSection,
   NavItem,
   NavGroup,
-  PersonaAvatar,
 } from "@saas-ui/react";
 import { FiHome, FiUsers, FiSettings, FiGithub } from "react-icons/fi";
 import {
@@ -23,13 +22,34 @@ import rantirBlack from "../../assets/logos/rantirBlack.svg";
 import { AuthContext } from "../../contexts/AuthContext/AuthProvider";
 import { FiInbox } from "react-icons/fi";
 import unknown from "../../assets/unknown.jpg";
+import config from "../../config";
 
 const DashboardLayout = () => {
-  const { logOut, user, userDB } = useContext(AuthContext);
+  const [orgList, setOrgList] = useState([]);
+
+  const { logOut, user, userDB, activeOrgId, setActiveOrgId, activeOrg } =
+    useContext(AuthContext);
+
   const navigate = useNavigate();
   const handleLogOut = async () => {
     const response = await logOut();
     navigate("/login");
+  };
+
+  useEffect(() => {
+    fetch(`${config?.base_url}/organizations/list?userId=${userDB?._id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setOrgList(data?.data);
+        setActiveOrgId(data?.data[0]?._id);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [userDB?._id]);
+
+  const handleOrNavigation = (orgId) => {
+    setActiveOrgId(orgId);
   };
 
   return (
@@ -47,9 +67,26 @@ const DashboardLayout = () => {
                     variant="ghost"
                   />
                   <MenuList className="text-sm">
-                    <p className="font-semibold ps-3 pb-4">Organizations</p>
+                    <p className="font-semibold ps-3 pb-2">Organizations</p>
+                    {orgList?.length
+                      ? orgList?.map((org) => (
+                          <MenuItem key={org?._id}>
+                            <button
+                              className="w-full text-start"
+                              onClick={() => handleOrNavigation(org?._id)}
+                            >
+                              {org?.orgName}
+                            </button>
+                          </MenuItem>
+                        ))
+                      : ""}
+
+                    <div className="h-[2px] w-full bg-gray-100 my-2"></div>
                     <MenuItem>
-                      <Link className="w-full" to={"/settings/organization"}>
+                      <Link
+                        className="w-full"
+                        to={`/${activeOrgId}/settings/organization`}
+                      >
                         Organization settings
                       </Link>
                     </MenuItem>
@@ -82,12 +119,15 @@ const DashboardLayout = () => {
                   />
                   <MenuList className="text-sm">
                     <MenuItem>
-                      <Link className="w-full" to={"/settings/profile"}>
+                      <Link
+                        className="w-full"
+                        to={`/${activeOrgId}/settings/profile`}
+                      >
                         Profile
                       </Link>
                     </MenuItem>
                     <MenuItem>
-                      <Link className="w-full" to={"/settings"}>
+                      <Link className="w-full" to={`/${activeOrgId}/settings`}>
                         Settings
                       </Link>
                     </MenuItem>
@@ -143,7 +183,9 @@ const DashboardLayout = () => {
         >
           <div className="overflow-y-scroll relative">
             <div className="p-3 shadow-sm fixed w-full bg-white md:relative flex justify-end md:justify-between items-center text-sm gap-5 ">
-              <Link className="font-semibold">Dashboard</Link>
+              <div className="font-semibold">
+                {activeOrg?.orgName ? activeOrg?.orgName : "Dashboard"}
+              </div>
               <button className="p-2 bg-violet-600 text-white font-semibold rounded-lg">
                 Go Enterprise
               </button>

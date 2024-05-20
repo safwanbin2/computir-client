@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { IoBagHandleOutline } from "react-icons/io5";
 import { LuShield } from "react-icons/lu";
 import { FaRegCircleQuestion } from "react-icons/fa6";
 import { FiBox, FiGithub } from "react-icons/fi";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../contexts/AuthContext/AuthProvider";
 
 const Overview = () => {
+  const { activeOrg } = useContext(AuthContext);
   return (
     <div className="w-11/12 mx-auto mt-6 pb-4">
       <div className="space-y-8">
@@ -51,8 +53,8 @@ const Overview = () => {
             </div>
             <div className="flex flex-col border shadow-sm rounded-lg">
               <div className="p-3 border-b flex items-center justify-start gap-2">
-                <div className="p-2 rounded-full bg-green-400 text-white font-semibold text-sm">
-                  SU
+                <div className="size-8 rounded-full bg-green-400 text-white font-semibold text-sm flex justify-center items-center">
+                  {activeOrg?.orgName[0]}
                 </div>
                 <div>
                   <h3 className="font-semibold">Organization</h3>
@@ -65,18 +67,21 @@ const Overview = () => {
                 <div className="w-8/12">
                   <div className="flex items-center justify-between">
                     <p className="text-gray-500 text-sm">Name: </p>
-                    <h4 className="font-semibold">Saas ui</h4>
+                    <h4 className="font-semibold">{activeOrg?.orgName}</h4>
                   </div>
                   <div className="flex items-center justify-between">
                     <p className="text-gray-500 text-sm">Email: </p>
-                    <h4 className="font-semibold">hello@saas-ui.dev</h4>
+                    <h4 className="font-semibold">{activeOrg?.orgEmail}</h4>
                   </div>
                 </div>
               </div>
               <div className="p-3 text-end">
-                <button className="p-2 border shadow-sm rounded-lg font-semibold text-sm">
+                <Link
+                  to={`/${activeOrg?._id}/settings/organization`}
+                  className="p-2 border shadow-sm rounded-lg font-semibold text-sm"
+                >
                   Upgrade
-                </button>
+                </Link>
               </div>
             </div>
           </div>

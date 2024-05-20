@@ -27,6 +27,18 @@ const AuthProvider = ({ children }) => {
   const [refetchUserDB, setRefetchUserDB] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
+  // states for creating org
+  const [newOrgInfo, setNewOrgInfo] = useState({
+    // orgEmail: user?.email || userDB?.email,
+    // orgOwnerId: userDB?._id,
+    // orgOwnerEmail: user?.email || userDB?.email,
+  });
+
+  // states for organization retrieval
+  const [activeOrgId, setActiveOrgId] = useState("");
+  const [activeOrg, setActiveOrg] = useState({});
+  const [refetchActiveOrg, setRefetchActiveOrg] = useState(false);
+
   const createUserWithEmail = (email, password) => {
     setIsLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
@@ -85,6 +97,20 @@ const AuthProvider = ({ children }) => {
     }
   }, [user, user?.email, refetchUserDB]);
 
+  // setting active org
+  useEffect(() => {
+    if (activeOrgId) {
+      fetch(`${config?.base_url}/organizations/single?orgId=${activeOrgId}`)
+        .then((res) => res.json())
+        .then((data) => {
+          setActiveOrg(data?.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [activeOrgId]);
+
   const authInfo = {
     user,
     userDB,
@@ -97,6 +123,14 @@ const AuthProvider = ({ children }) => {
     setIsLoading,
     setRefetchUserDB,
     logInWithGithub,
+    activeOrgId,
+    setActiveOrgId,
+    activeOrg,
+    setActiveOrg,
+    refetchActiveOrg,
+    setRefetchActiveOrg,
+    newOrgInfo,
+    setNewOrgInfo,
   };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>

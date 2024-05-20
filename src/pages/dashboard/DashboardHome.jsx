@@ -1,15 +1,20 @@
-import React from "react";
+import React, { useContext } from "react";
 import { FaRegPlusSquare } from "react-icons/fa";
 import { FiBox, FiGithub } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import StatusDot from "../../components/ui/StatusDot";
+import { AuthContext } from "../../contexts/AuthContext/AuthProvider";
 
 const DashboardHome = () => {
+  const { user, userDB } = useContext(AuthContext);
   return (
     <div className="w-11/12 mx-auto mt-6">
       <div className="space-y-10">
         <div className="space-y-2">
-          <h1 className="text-2xl font-semibold">Welcome Back, Tayler</h1>
+          <h1 className="text-2xl font-semibold">
+            Welcome Back, {userDB?.firstName}{" "}
+            {userDB?.lastName ?? userDB?.lastName}
+          </h1>
           <p className="text-sm gap-1 font-semibold">
             <span className="font-semibold">Rantir Cloud </span>
             Lorem ipsum dolor sit amet consectetur, adipisicing elit. At

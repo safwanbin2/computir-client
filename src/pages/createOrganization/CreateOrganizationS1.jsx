@@ -1,9 +1,23 @@
-import React from "react";
+import React, { useContext } from "react";
 import rantirBlack from "../../assets/logos/rantirBlack.svg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { RiArrowLeftSLine } from "react-icons/ri";
+import { AuthContext } from "../../contexts/AuthContext/AuthProvider";
+import { useForm } from "react-hook-form";
 
 const CreateOrganizationS1 = () => {
+  const { newOrgInfo, setNewOrgInfo, user } = useContext(AuthContext);
+  const { register, handleSubmit } = useForm();
+  const navigate = useNavigate();
+
+  const handleCreateOrg1 = (data) => {
+    setNewOrgInfo((prev) => ({
+      ...prev,
+      ...data,
+    }));
+    navigate("/create-organization-s2");
+  };
+
   return (
     <div className="min-h-screen w-full flex justify-center items-center relative">
       <div className="absolute top-0 left-0 w-full h-14 border-b shadow-sm">
@@ -13,7 +27,7 @@ const CreateOrganizationS1 = () => {
           </Link>
           <div className="text-sm">
             <p className="text-gray-500">Logged in as</p>
-            <p className="font-semibold">hello@saas-ii.dev</p>
+            <p className="font-semibold">{user?.email}</p>
           </div>
         </div>
       </div>
@@ -34,13 +48,16 @@ const CreateOrganizationS1 = () => {
           </div>
         </div>
         <div>
-          <form className="space-y-4">
+          <form onSubmit={handleSubmit(handleCreateOrg1)} className="space-y-4">
             <div className="space-y-2">
               <label htmlFor="orgName">Organization name</label>
               <input
                 className="border-2 p-1 rounded-lg w-full"
                 type="text"
                 name="orgName"
+                {...register("orgName", {
+                  required: "Provide a name for organization",
+                })}
               />
             </div>
             <div className="space-y-2">
@@ -49,15 +66,16 @@ const CreateOrganizationS1 = () => {
                 className="border-2 p-1 rounded-lg w-full"
                 type="text"
                 name="orgURL"
+                {...register("orgURL")}
               />
             </div>
             <div className="w-full">
-              <Link
-                to={"/create-organization-s2"}
+              <button
+                // to={"/create-organization-s2"}
                 className="bg-violet-500 text-white w-full font-semibold text-sm p-2 rounded-lg inline-block text-center"
               >
                 Create organization
-              </Link>
+              </button>
             </div>
           </form>
         </div>

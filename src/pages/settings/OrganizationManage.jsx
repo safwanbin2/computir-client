@@ -1,6 +1,35 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AuthContext } from "../../contexts/AuthContext/AuthProvider";
+import { useForm } from "react-hook-form";
+import config from "../../config";
 
 const OrganizationManage = () => {
+  const { activeOrg, refetchActiveOrg, setRefetchActiveOrg } =
+    useContext(AuthContext);
+  const { orgName, _id, orgEmail } = activeOrg ?? {};
+  const { register, handleSubmit } = useForm({ activeOrg });
+
+  const updateOrg = (data) => {
+    fetch(
+      `${config?.base_url}/organizations/update-organization?orgId=${activeOrg?._id}`,
+      {
+        method: "PATCH",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setRefetchActiveOrg(!refetchActiveOrg);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <div className="w-11/12 mx-auto mt-6 pb-4">
       <div className="space-y-8">
@@ -18,18 +47,31 @@ const OrganizationManage = () => {
               Basic details about your organization.
             </p>
           </div>
-          <form className="col-span-5 w-full p-5 rounded-lg border shadow-sm space-y-2">
+          <form
+            onSubmit={handleSubmit(updateOrg)}
+            className="col-span-5 w-full p-5 rounded-lg border shadow-sm space-y-2"
+          >
             <div className="flex flex-col space-y-2">
               <label htmlFor="orgName" className="text-sm font-semibold">
                 Organization name
               </label>
-              <input type="text" className="p-1 border rounded-lg" />
+              <input
+                defaultValue={orgName ?? orgName}
+                type="text"
+                className="p-1 border rounded-lg"
+                {...register("orgName", { required: "Org name is required" })}
+              />
             </div>
             <div className="flex flex-col space-y-2">
               <label htmlFor="orgName" className="text-sm font-semibold">
                 Email address
               </label>
-              <input type="text" className="p-1 border rounded-lg" />
+              <input
+                defaultValue={orgEmail ?? orgEmail}
+                type="email"
+                className="p-1 border rounded-lg"
+                {...register("orgEmail", { required: "Org email is required" })}
+              />
             </div>
             <div>
               <button className="py-2 px-4 bg-violet-500 text-white font-semibold text-sm rounded-lg">

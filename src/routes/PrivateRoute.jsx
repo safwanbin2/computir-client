@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 
 import { Navigate, useLocation } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext/AuthProvider";
+import LoadingScreen from "../components/ui/LoadingScreen";
 
 const PrivateRoute = ({ children }) => {
   const { user, isLoading } = useContext(AuthContext);
@@ -9,9 +10,10 @@ const PrivateRoute = ({ children }) => {
 
   if (isLoading) {
     return (
-      <div className="h-screen w-full flex justify-center items-center">
-        <h1>loading...</h1>
-      </div>
+      <LoadingScreen />
+      // <div className="h-screen w-full flex justify-center items-center">
+      //   <h1>loading...</h1>
+      // </div>
     );
   }
   if (user) {
