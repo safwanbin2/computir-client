@@ -6,6 +6,7 @@ import { ModalsProvider, SaasProvider } from "@saas-ui/react";
 import { extendTheme } from "@chakra-ui/react";
 import { theme as baseTheme } from "@saas-ui/react";
 import AuthProvider from "./contexts/AuthContext/AuthProvider.jsx";
+import "@fontsource-variable/golos-text";
 
 const theme = extendTheme(
   {

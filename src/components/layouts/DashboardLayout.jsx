@@ -28,8 +28,15 @@ import { TiTick } from "react-icons/ti";
 const DashboardLayout = () => {
   const [orgList, setOrgList] = useState([]);
 
-  const { logOut, user, userDB, activeOrgId, setActiveOrgId, activeOrg } =
-    useContext(AuthContext);
+  const {
+    logOut,
+    user,
+    userDB,
+    activeOrgId,
+    setActiveOrgId,
+    activeOrg,
+    refetchList,
+  } = useContext(AuthContext);
 
   const navigate = useNavigate();
   const handleLogOut = async () => {
@@ -49,7 +56,7 @@ const DashboardLayout = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, [userDB?._id, setActiveOrgId, user?.email]);
+  }, [userDB?._id, setActiveOrgId, user?.email, refetchList]);
 
   const handleOrNavigation = (orgId) => {
     setActiveOrgId(orgId);

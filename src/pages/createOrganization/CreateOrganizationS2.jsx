@@ -8,7 +8,14 @@ import config from "../../config";
 
 const CreateOrganizationS2 = () => {
   const [loading, setLoading] = useState(false);
-  const { newOrgInfo, setNewOrgInfo, user, userDB } = useContext(AuthContext);
+  const {
+    newOrgInfo,
+    setNewOrgInfo,
+    user,
+    userDB,
+    refetchList,
+    setRefetchList,
+  } = useContext(AuthContext);
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
 
@@ -31,9 +38,10 @@ const CreateOrganizationS2 = () => {
     })
       .then((res) => res.json())
       .then((data) => {
+        console.log({ data, newOrg });
         setLoading(false);
+        setRefetchList(!refetchList);
         navigate("/");
-        window.location.reload();
       })
       .catch((err) => {
         setLoading(false);

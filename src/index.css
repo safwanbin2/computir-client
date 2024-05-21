@@ -1,11 +1,16 @@
-/* @import url("https://fonts.googleapis.com/css2?family=Golos+Text:wght@400..900&display=swap"); */
+/* @import url("https://fonts.googleapis.com/css2?family=Golos+Text:wght@400..900&family=Jacquard+12&display=swap"); */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-body {
-  /* font-family: "Golos Text", sans-serif; */
+/* :root {
+  --chakra-fonts-body: "Golos Text", sans-serif;
+  --chakra-fonts-heading: "Golos Text", sans-serif;
 }
+
+html {
+  font-family: var(--chakra-fonts-body) !important;
+} */
 
 .or {
   font-weight: 400;

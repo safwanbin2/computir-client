@@ -8,7 +8,8 @@ import config from "../../config";
 import iPadPro from "../../assets/iPadPro.jpg";
 
 const Signup = () => {
-  const { createUserWithEmail, logInWithGoogle } = useContext(AuthContext);
+  const { createUserWithEmail, logInWithGoogle, setRefetchUserDB } =
+    useContext(AuthContext);
   const [loading, setLoading] = useState(false);
   const [googleLoading, setGoogleLoading] = useState(false);
   const navigate = useNavigate();
@@ -41,6 +42,7 @@ const Signup = () => {
             .then((data) => {
               console.log(data);
               setLoading(false);
+              setRefetchUserDB((prev) => !prev);
               return navigate("/");
             })
             .catch((err) => console.log(err));
@@ -78,6 +80,7 @@ const Signup = () => {
             .then((data) => {
               console.log(data);
               setGoogleLoading(false);
+              setRefetchUserDB((prev) => !prev);
               return navigate("/");
             })
             .catch((err) => console.log(err));

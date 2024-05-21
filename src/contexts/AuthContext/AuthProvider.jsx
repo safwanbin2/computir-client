@@ -38,6 +38,7 @@ const AuthProvider = ({ children }) => {
   const [activeOrgId, setActiveOrgId] = useState(null);
   const [activeOrg, setActiveOrg] = useState({});
   const [refetchActiveOrg, setRefetchActiveOrg] = useState(false);
+  const [refetchList, setRefetchList] = useState(false);
 
   const createUserWithEmail = (email, password) => {
     setIsLoading(true);
@@ -111,6 +112,8 @@ const AuthProvider = ({ children }) => {
     }
   }, [activeOrgId]);
 
+  console.log({ userDB });
+
   const authInfo = {
     user,
     userDB,
@@ -131,6 +134,8 @@ const AuthProvider = ({ children }) => {
     setRefetchActiveOrg,
     newOrgInfo,
     setNewOrgInfo,
+    refetchList,
+    setRefetchList,
   };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
