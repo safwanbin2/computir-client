@@ -18,11 +18,12 @@ import {
   MenuList,
   Spacer,
 } from "@chakra-ui/react";
-import rantirBlack from "../../assets/logos/rantirBlack.svg";
+import rantirBlackMini from "../../assets/logos/rantirBlackMini.svg";
 import { AuthContext } from "../../contexts/AuthContext/AuthProvider";
 import { FiInbox } from "react-icons/fi";
 import unknown from "../../assets/unknown.jpg";
 import config from "../../config";
+import { TiTick } from "react-icons/ti";
 
 const DashboardLayout = () => {
   const [orgList, setOrgList] = useState([]);
@@ -37,20 +38,24 @@ const DashboardLayout = () => {
   };
 
   useEffect(() => {
-    fetch(`${config?.base_url}/organizations/list?userId=${userDB?._id}`)
+    fetch(
+      `${config?.base_url}/organizations/list?userId=${userDB?._id}&email=${user?.email}`
+    )
       .then((res) => res.json())
       .then((data) => {
         setOrgList(data?.data);
-        setActiveOrgId(data?.data[0]?._id);
+        setActiveOrgId(data?.data[0]?.orgId?._id);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [userDB?._id]);
+  }, [userDB?._id, setActiveOrgId, user?.email]);
 
   const handleOrNavigation = (orgId) => {
     setActiveOrgId(orgId);
   };
+
+  console.log(orgList);
 
   return (
     <div className="min-h-screen">
@@ -63,7 +68,16 @@ const DashboardLayout = () => {
                 <Menu>
                   <MenuButton
                     as={IconButton}
-                    icon={<Image src={rantirBlack} className="h-[20px]" />}
+                    icon={
+                      <div className="flex justify-center gap-2 items-center">
+                        <Image src={rantirBlackMini} className="h-[20px]" />{" "}
+                        <span className="text-base">
+                          {activeOrg?.orgName
+                            ? activeOrg?.orgName
+                            : "Dashboard"}
+                        </span>
+                      </div>
+                    }
                     variant="ghost"
                   />
                   <MenuList className="text-sm">
@@ -72,10 +86,17 @@ const DashboardLayout = () => {
                       ? orgList?.map((org) => (
                           <MenuItem key={org?._id}>
                             <button
-                              className="w-full text-start"
-                              onClick={() => handleOrNavigation(org?._id)}
+                              className="w-full text-start flex justify-between items-center"
+                              onClick={() =>
+                                handleOrNavigation(org?.orgId?._id)
+                              }
                             >
-                              {org?.orgName}
+                              <span>{org?.orgId?.orgName}</span>
+                              {org?.orgId?._id === activeOrgId ? (
+                                <TiTick className="text-xl" />
+                              ) : (
+                                ""
+                              )}
                             </button>
                           </MenuItem>
                         ))

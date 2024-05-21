@@ -39,7 +39,7 @@ const Plans = () => {
     <div className="w-11/12 mx-auto mt-6 pb-4">
       <div className="space-y-8">
         <div>
-          <h1 className="text-xl font-semibold">Billing PLans</h1>
+          <h1 className="text-xl font-semibold">Billing Plans</h1>
           <p className="text-sm gap-1 text-gray-500">
             Manage your organization settings
           </p>

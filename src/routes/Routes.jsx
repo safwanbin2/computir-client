@@ -18,6 +18,7 @@ import CreateOrganizationS1 from "../pages/createOrganization/CreateOrganization
 import CreateOrganizationS2 from "../pages/createOrganization/CreateOrganizationS2";
 import Plans from "../pages/settings/Plans";
 import PrivateRoute from "./PrivateRoute";
+import AcceptInvitation from "../pages/home/AcceptInvitation";
 
 export const router = createBrowserRouter([
   {
@@ -112,5 +113,9 @@ export const router = createBrowserRouter([
   {
     path: "/create-organization-s2",
     element: <CreateOrganizationS2 />,
+  },
+  {
+    path: "/accept-invitation/:orgId/:email/:role",
+    element: <AcceptInvitation />,
   },
 ]);

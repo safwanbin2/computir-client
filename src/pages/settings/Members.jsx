@@ -12,12 +12,14 @@ import { Field, FormDialog, FormLayout, useModals } from "@saas-ui/react";
 import { FiUsers, FiTag, FiArchive } from "react-icons/fi";
 import { AuthContext } from "../../contexts/AuthContext/AuthProvider";
 import config from "../../config";
+import { useParams } from "react-router-dom";
 
 const Members = () => {
-  const { activeOrg, activeOrgId } = useContext(AuthContext);
+  const { activeOrg, activeOrgId, setActiveOrgId } = useContext(AuthContext);
   const [refetch, setRefetch] = useState(false);
   const [members, setMembers] = useState([]);
   const [membershipId, setMembershipId] = useState(null);
+  const { orgId } = useParams();
 
   const disclosure = useDisclosure();
   const disclosureRole = useDisclosure();
@@ -26,6 +28,28 @@ const Members = () => {
 
   const onAddSubmit = async (data) => {
     disclosure.onClose();
+    const newInvite = {
+      email: data?.email,
+      orgId: activeOrg?._id || activeOrgId,
+      orgName: activeOrg?.orgName,
+      role: data?.role,
+    };
+
+    fetch(`${config?.base_url}/organizations/membership/invite`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(newInvite),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setRefetch(!refetch);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const onRoleSubmit = async (data) => {
@@ -65,6 +89,12 @@ const Members = () => {
       });
   }, [activeOrgId, refetch]);
 
+  useEffect(() => {
+    if (!activeOrgId) {
+      setActiveOrgId(orgId);
+    }
+  }, [activeOrgId, setActiveOrgId, orgId]);
+
   return (
     <>
       <div className="w-11/12 mx-auto mt-6 pb-4">
@@ -83,7 +113,7 @@ const Members = () => {
                 Invite your colleagues
               </p>
             </div>
-            <div className="col-span-5 w-full p-5 rounded-lg border shadow-sm space-y-5">
+            <div className="col-span-5 p-5 rounded-lg border shadow-sm space-y-5">
               <div className="flex gap-3">
                 <input
                   type="search"
@@ -100,12 +130,12 @@ const Members = () => {
                   Invite people
                 </Button>
               </div>
-              <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-6 md:gap-4">
                 {members?.length
                   ? members?.map((member) => (
                       <div
                         key={member?._id}
-                        className="flex justify-between items-center "
+                        className="flex flex-col md:flex-row justify-between items-start  md:items-center gap-2 md:gap-0"
                       >
                         <div className="flex items-center justify-center gap-3">
                           <div className="rounded-full bg-green-300 h-8 w-8 flex justify-center items-center">
@@ -168,7 +198,7 @@ const Members = () => {
                                       },
                                       onConfirm: () => {
                                         fetch(
-                                          `${config?.base_url}/organizations/membership/remove?membershipId=${membershipId}`,
+                                          `${config?.base_url}/organizations/membership/remove?membershipId=${member?._id}`,
                                           {
                                             method: "DELETE",
                                           }
@@ -205,14 +235,15 @@ const Members = () => {
         defaultValues={{ title: "" }}
         {...disclosure}
         onSubmit={onAddSubmit}
-        initialFocusRef={initialRef}
+        // initialFocusRef={initialRef}
       >
         <FormLayout>
           <Field
             name="email"
-            type="textarea"
+            type="email"
             label=""
-            rules={{ required: "Add at least one email address" }}
+            className="!h-16"
+            rules={{ required: "Add an email address" }}
           />
           <Field
             name="role"
@@ -228,7 +259,7 @@ const Members = () => {
                 label: "Member",
               },
             ]}
-            ref={initialRef}
+            // ref={initialRef}
           />
         </FormLayout>
       </FormDialog>

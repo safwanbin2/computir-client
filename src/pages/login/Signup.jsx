@@ -5,6 +5,7 @@ import rantirBlack from "../../assets/logos/rantirBlack.svg";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../contexts/AuthContext/AuthProvider";
 import config from "../../config";
+import iPadPro from "../../assets/iPadPro.jpg";
 
 const Signup = () => {
   const { createUserWithEmail, logInWithGoogle } = useContext(AuthContext);
@@ -166,7 +167,8 @@ const Signup = () => {
           </div>
         </div>
       </div>
-      <div className="signup-right hidden md:block relative">
+      <div className="hidden md:block relative ">
+        <img className="max-h-[100vh] w-full" src={iPadPro} alt="" />
         {/* <div className="absolute bottom-10 left-10 bg-black/70 backdrop-blur-sm text-white w-6/12 p-4 rounded-lg space-y-2">
           <div>Computir</div>
           <p className="text-xs font-extralight">

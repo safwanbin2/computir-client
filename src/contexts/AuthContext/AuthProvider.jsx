@@ -35,7 +35,7 @@ const AuthProvider = ({ children }) => {
   });
 
   // states for organization retrieval
-  const [activeOrgId, setActiveOrgId] = useState("");
+  const [activeOrgId, setActiveOrgId] = useState(null);
   const [activeOrg, setActiveOrg] = useState({});
   const [refetchActiveOrg, setRefetchActiveOrg] = useState(false);
 

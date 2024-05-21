@@ -1,13 +1,21 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { IoBagHandleOutline } from "react-icons/io5";
 import { LuShield } from "react-icons/lu";
 import { FaRegCircleQuestion } from "react-icons/fa6";
 import { FiBox, FiGithub } from "react-icons/fi";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext/AuthProvider";
+import config from "../../config";
 
 const Overview = () => {
-  const { activeOrg } = useContext(AuthContext);
+  const { activeOrg, activeOrgId, setActiveOrgId } = useContext(AuthContext);
+  const { orgId } = useParams();
+  useEffect(() => {
+    if (!activeOrgId) {
+      setActiveOrgId(orgId);
+    }
+  }, [activeOrgId, setActiveOrgId, orgId]);
+
   return (
     <div className="w-11/12 mx-auto mt-6 pb-4">
       <div className="space-y-8">
@@ -54,7 +62,7 @@ const Overview = () => {
             <div className="flex flex-col border shadow-sm rounded-lg">
               <div className="p-3 border-b flex items-center justify-start gap-2">
                 <div className="size-8 rounded-full bg-green-400 text-white font-semibold text-sm flex justify-center items-center">
-                  {activeOrg?.orgName[0]}
+                  {activeOrg?.orgName ? activeOrg?.orgName[0] : "N/A"}
                 </div>
                 <div>
                   <h3 className="font-semibold">Organization</h3>

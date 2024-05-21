@@ -67,6 +67,7 @@ const CreateOrganizationS1 = () => {
                 type="text"
                 name="orgURL"
                 {...register("orgURL")}
+                disabled
               />
             </div>
             <div className="w-full">

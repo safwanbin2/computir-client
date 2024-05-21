@@ -1,11 +1,18 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { AuthContext } from "../../contexts/AuthContext/AuthProvider";
 import { useForm } from "react-hook-form";
 import config from "../../config";
+import { useParams } from "react-router-dom";
 
 const OrganizationManage = () => {
-  const { activeOrg, refetchActiveOrg, setRefetchActiveOrg } =
-    useContext(AuthContext);
+  const {
+    activeOrg,
+    refetchActiveOrg,
+    setRefetchActiveOrg,
+    setActiveOrgId,
+    activeOrgId,
+  } = useContext(AuthContext);
+  const { orgId } = useParams();
   const { orgName, _id, orgEmail } = activeOrg ?? {};
   const { register, handleSubmit } = useForm({ activeOrg });
 
@@ -29,6 +36,12 @@ const OrganizationManage = () => {
         console.log(err);
       });
   };
+
+  useEffect(() => {
+    if (!activeOrgId) {
+      setActiveOrgId(orgId);
+    }
+  }, [activeOrgId, setActiveOrgId, orgId]);
 
   return (
     <div className="w-11/12 mx-auto mt-6 pb-4">
