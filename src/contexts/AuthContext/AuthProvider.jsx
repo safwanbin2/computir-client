@@ -110,7 +110,7 @@ const AuthProvider = ({ children }) => {
           console.log(err);
         });
     }
-  }, [activeOrgId]);
+  }, [activeOrgId, refetchActiveOrg]);
 
   console.log({ userDB });
 

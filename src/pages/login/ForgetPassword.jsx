@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import rantirBlack from "../../assets/logos/rantirBlack.svg";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../contexts/AuthContext/AuthProvider";
+import { toast } from "sonner";
 
 const ForgetPassword = () => {
   const { sendResetPassword } = useContext(AuthContext);
@@ -20,26 +21,28 @@ const ForgetPassword = () => {
     sendResetPassword(data?.email)
       .then(() => {
         setMessage("Check mail");
+        toast.success("Check mail", { id: "forget" });
         setLoading(false);
       })
       .catch((err) => {
         setLoading(false);
         console.log(err);
+        toast.error(err?.message || "Something went wrong", { id: "forget" });
       });
   };
 
   return (
     <div className="min-h-screen w-full flex justify-center items-center">
-      <div className="space-y-5 w-11/12 md:w-auto">
+      <div className="space-y-5 w-11/12 md:w-[450px]">
         <div>
-          <div className="space-y-3 mb-3 text-center">
+          <div className="space-y-5 mb-3 text-center">
             <div className="flex items-center justify-center gap-2">
-              <img className="h-[20px]" src={rantirBlack} alt="" />
+              <img className="h-[25px]" src={rantirBlack} alt="" />
               <div className="p-1 bg-gray-100 shadow-lg rounded-lg font-semibold text-xs">
                 CLOUD 1.2
               </div>
             </div>
-            <h3 className="font-semibold">Forgot Password</h3>
+            <h3 className="font-semibold text-2xl">Forgot password</h3>
           </div>
         </div>
         <div>
@@ -48,7 +51,9 @@ const ForgetPassword = () => {
             className="space-y-3"
           >
             <div className="space-y-2">
-              <label htmlFor="email">Your email address</label>
+              <label htmlFor="email" className="text-[14px]">
+                Your email address
+              </label>
               <input
                 {...register("email", {
                   required: "Can not be empty",

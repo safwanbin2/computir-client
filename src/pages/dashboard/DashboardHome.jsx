@@ -15,11 +15,10 @@ const DashboardHome = () => {
             Welcome Back, {userDB?.firstName}{" "}
             {userDB?.lastName ?? userDB?.lastName}
           </h1>
-          <p className="text-sm gap-1 font-semibold">
-            <span className="font-semibold">Rantir Cloud </span>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. At
-            laudantium alias vero fugit voluptatum nam rem, recusandae
-            obcaecati? Vero, perferendis!
+          <p className="text-sm gap-1 w-full md:w-8/12">
+            <span className="font-semibold ">Rantir Cloud </span>
+            is a remote management software platform that provides the essential
+            foundation for an easily managed and successful AI applications.
           </p>
         </div>
         <div className="space-y-4">

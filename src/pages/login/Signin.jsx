@@ -5,6 +5,7 @@ import { AuthContext } from "../../contexts/AuthContext/AuthProvider";
 import rantirBlack from "../../assets/logos/rantirBlack.svg";
 import config from "../../config";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 const Signin = () => {
   const { logInWithGoogle, logInWithEmail, logInWithGithub } =
@@ -47,7 +48,13 @@ const Signin = () => {
               setGoogleLoading(false);
               return navigate("/");
             })
-            .catch((err) => console.log(err));
+            .catch((err) => {
+              setGoogleLoading(false);
+              console.log(err);
+              toast.error(err?.message || "Something went wrong", {
+                id: "signin",
+              });
+            });
 
           setGoogleLoading(false);
           navigate("/");
@@ -57,6 +64,7 @@ const Signin = () => {
       .catch((err) => {
         console.error(err);
         setGoogleLoading(false);
+        toast.error(err?.message || "Something went wrong", { id: "signin" });
       });
   };
 
@@ -86,7 +94,13 @@ const Signin = () => {
               setGithubLoading(false);
               return navigate("/");
             })
-            .catch((err) => console.log(err));
+            .catch((err) => {
+              setGithubLoading(false);
+              console.log(err);
+              toast.error(err?.message || "Something went wrong", {
+                id: "signin",
+              });
+            });
 
           setGithubLoading(false);
           navigate("/");
@@ -96,6 +110,7 @@ const Signin = () => {
       .catch((err) => {
         console.error(err);
         setGithubLoading(false);
+        toast.error(err?.message || "Something went wrong", { id: "signin" });
       });
   };
 
@@ -111,23 +126,24 @@ const Signin = () => {
       .catch((err) => {
         console.error(err);
         setEmailLoading(false);
+        toast.error(err?.message || "Something went wrong", { id: "signin" });
       });
   };
 
   return (
     <div className="min-h-screen w-full flex justify-center items-center">
-      <div className="w-11/12 md:w-auto">
+      <div className="w-11/12 md:w-[450px]">
         <div>
-          <div className="space-y-3 mb-3">
-            <div className="flex  items-center gap-2">
-              <img className="h-[20px]" src={rantirBlack} alt="" />
+          <div className="space-y-5 mb-3">
+            <div className="flex items-center gap-2">
+              <img className="h-[25px]" src={rantirBlack} alt="" />
               <div className="p-1 bg-gray-100 shadow-lg rounded-lg font-semibold text-xs">
                 CLOUD 1.2
               </div>
             </div>
-            <h3 className="font-semibold">Welcome Back</h3>
+            <h3 className="font-semibold text-2xl">Welcome Back</h3>
           </div>
-          <div className="space-y-2">
+          <div className="space-y-4">
             <button
               onClick={handleGoogleSignIn}
               className="p-2 border text-sm font-semibold w-full flex justify-center items-center gap-2"
@@ -162,7 +178,9 @@ const Signin = () => {
         <div>
           <form onSubmit={handleSubmit(handleLogin)} className="space-y-3">
             <div className="space-y-2">
-              <label htmlFor="email">Email</label>
+              <label htmlFor="email" className="text-[14px]">
+                Email
+              </label>
               <input
                 {...register("email", {
                   required: "Can not be empty",
@@ -173,7 +191,9 @@ const Signin = () => {
               />
             </div>
             <div className="space-y-2">
-              <label htmlFor="password">Password</label>
+              <label htmlFor="password" className="text-[14px]">
+                Password
+              </label>
               <input
                 {...register("password", {
                   required: "Can not be empty",
@@ -184,7 +204,10 @@ const Signin = () => {
               />
             </div>
             <div>
-              <Link className="text-sm text-gray-500" to="/forgot-password">
+              <Link
+                className="text-[13px] hover:underline text-gray-500"
+                to="/forgot-password"
+              >
                 Forgot Password?
               </Link>
             </div>

@@ -21,13 +21,16 @@ const SettingLayout = () => {
       <div className="">
         <AppShell
           sidebar={
-            <Sidebar toggleBreakpoint="md">
+            <Sidebar width="200px" toggleBreakpoint="md">
               <SidebarToggleButton />
-              <SidebarSection direction="row" className="items-center gap-3">
+              <SidebarSection
+                direction="row"
+                className="items-center gap-3 ms-2"
+              >
                 <Link to="/dashboard">
                   <IoIosArrowBack />
                 </Link>
-                <Image src={rantirBlackMini} className="h-[25px]" />
+                {/* <Image src={rantirBlackMini} className="h-[25px]" /> */}
                 <h2 className="font-bold">Settings</h2>
               </SidebarSection>
               <SidebarSection aria-label="Main">
@@ -92,7 +95,7 @@ const SettingLayout = () => {
             </Sidebar>
           }
         >
-          <div className="h-full w-full overflow-y-scroll pt-10 md:pt-0 relative">
+          <div className="h-full w-full overflow-y-scroll pt-10 md:pt-0 relative ">
             <div className="fixed md:hidden w-full h-14 top-0 left-0 bg-white"></div>
             <Outlet />
           </div>

@@ -69,16 +69,16 @@ const DashboardLayout = () => {
       <div>
         <AppShell
           sidebar={
-            <Sidebar toggleBreakpoint="md">
+            <Sidebar width="200px" toggleBreakpoint="md">
               <SidebarToggleButton />
               <SidebarSection direction="row" className="items-center">
                 <Menu>
                   <MenuButton
                     as={IconButton}
                     icon={
-                      <div className="flex justify-center gap-2 items-center">
+                      <div className="flex justify-center gap-2 items-center px-2">
                         <Image src={rantirBlackMini} className="h-[20px]" />{" "}
-                        <span className="text-base">
+                        <span className="text-sm tracking-tighter">
                           {activeOrg?.orgName
                             ? activeOrg?.orgName
                             : "Dashboard"}
@@ -140,7 +140,7 @@ const DashboardLayout = () => {
                             : unknown
                         }
                         alt=""
-                        className="size-8 rounded-full"
+                        className="size-8 rounded-full p-1"
                       />
                     }
                     variant="ghost"
@@ -218,7 +218,7 @@ const DashboardLayout = () => {
                 Go Enterprise
               </button>
             </div>
-            <div className="min-h-[90vh] w-full pt-16 md:pt-0">
+            <div className="min-h-[90vh] max-w-[1300px] mx-auto pt-16 md:pt-0">
               <Outlet />
             </div>
             <div className="flex flex-col md:flex-row justify-center items-center text-xs gap-1 md:gap-8 text-gray-500 pt-16 md:pt-10 pb-2">

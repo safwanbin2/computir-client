@@ -2,15 +2,15 @@ import React from "react";
 
 const Notyfications = () => {
   return (
-    <div className="w-11/12 mx-auto mt-6 pb-4">
+    <div className="mt-8 pb-4 min-h-[90vh] w-11/12 md:max-w-[1000px] mx-auto pt-16 md:pt-0">
       <div className="space-y-8">
-        <div>
-          <h1 className="text-xl font-semibold">Notyfications</h1>
+        <div className="pb-8">
+          <h1 className="text-2xl font-semibold">Notyfications</h1>
           <p className="text-sm gap-1 text-gray-500">
             Manage how and where you want to be notified.
           </p>
         </div>
-        <div className="h-[2px] w-full bg-gray-100"></div>
+        {/* <div className="h-[2px] w-full bg-gray-100"></div> */}
         <div className="grid md:grid-cols-7 gap-5">
           <div className="col-span-2">
             <h1 className="text-base font-semibold">Notyfication channels</h1>
