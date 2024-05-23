@@ -41,11 +41,11 @@ html {
   margin-inline: 15px;
 }
 
-.signup-right {
+.sign-up {
   background-image: url("./assets/iPadPro.jpg");
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: bottom left;
+  background-position: center;
 }
 
 label {

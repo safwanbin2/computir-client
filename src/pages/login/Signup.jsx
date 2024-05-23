@@ -254,8 +254,8 @@ const Signup = () => {
           </div>
         </div>
       </div>
-      <div className="hidden md:block relative ">
-        <img className="max-h-[100vh] w-full" src={iPadPro} alt="" />
+      <div className="hidden md:block relative sign-up">
+        {/* <img className="max-h-[100vh] w-full" src={iPadPro} alt="" /> */}
         {/* <div className="absolute bottom-10 left-10 bg-black/70 backdrop-blur-sm text-white w-6/12 p-4 rounded-lg space-y-2">
           <div>Computir</div>
           <p className="text-xs font-extralight">
