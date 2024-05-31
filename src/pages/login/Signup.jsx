@@ -7,6 +7,13 @@ import { AuthContext } from "../../contexts/AuthContext/AuthProvider";
 import config from "../../config";
 import iPadPro from "../../assets/iPadPro.jpg";
 import { toast } from "sonner";
+import { PasswordInput } from "@saas-ui/react";
+
+import logo from "../../assets/images/logo.png";
+import signUpBg from "../../assets/images/signUp-bg.png";
+import google from "../../assets/svgs/google-black.svg";
+import github from "../../assets/svgs/github-black.svg";
+import { Input } from "@chakra-ui/react";
 
 const Signup = () => {
   const {
@@ -167,108 +174,107 @@ const Signup = () => {
   };
 
   return (
-    <div className="min-h-screen w-full grid grid-cols-1 md:grid-cols-2">
-      <div className="h-full w-full flex justify-center items-center">
+    <div className="flex items-center justify-center md:justify-between overflow-hidden h-screen">
+      <div className="flex items-center justify-center w-full md:w-[55%] lg:w-[60%]">
         <div className="w-11/12 md:w-[450px]">
           <div>
-            <div className="space-y-5 mb-3">
-              <div className="flex items-center gap-2">
-                <img className="h-[25px]" src={rantirBlack} alt="" />
-                <div className="p-1 bg-gray-100 shadow-lg rounded-lg font-semibold text-xs">
-                  CLOUD 1.2
-                </div>
+            <div className="flex items-center">
+              <img src={logo} alt={"logo"} />
+              <div className="ms-[10.89px] font-bold bg-[#FBFBFB] text-[10.608px] rounded-[3.201px] drop-shadow-md">
+                CLOUD 1.2
               </div>
-              <h3 className="font-semibold text-2xl">Sign up for free</h3>
             </div>
-            <div className="space-y-4">
+            <div className="mt-[25px] mb-[28px] text-[20px] font-semibold">
+              Welcome Back
+            </div>
+            <div className="space-y-4 mb-3">
               <button
                 onClick={handleLogInWithGoogle}
-                className="p-2 border text-sm font-semibold w-full flex justify-center items-center gap-2"
+                className="p-2 border text-sm font-semibold w-full flex justify-center items-center gap-2 bg-transparent rounded-[6px]"
               >
                 {googleLoading ? (
                   "Loading..."
                 ) : (
                   <>
-                    <FaGoogle />
-                    <span>Continue with Google</span>
+                    <span>
+                      <img src={google} />
+                    </span>{" "}
+                    Continue with Google
                   </>
                 )}
               </button>
               <button
                 onClick={handleGithubSignin}
-                className="p-2 border text-sm font-semibold w-full flex justify-center items-center gap-2"
+                className="p-2 border text-sm font-semibold w-full flex justify-center items-center gap-2 bg-transparent rounded-[6px]"
               >
                 {githubLoading ? (
                   "Loading..."
                 ) : (
                   <>
-                    <FaGithub />
-                    <span>Continue with Github</span>
+                    <span>
+                      <img src={github} />
+                    </span>{" "}
+                    Continue with Github
                   </>
                 )}
               </button>
             </div>
-            <div className="or">
-              <span className="text-gray-500">or wontinue with</span>
+            <div className="flex items-center justify-center mb-[36px]">
+              <span className="w-[100%] h-[1px] bg-[#E7E7E8]"></span>
+              <span className="text-gray-500 w-[100%] text-center">
+                or continue with
+              </span>
+              <span className="w-[100%] h-[1px] bg-[#E7E7E8]"></span>
             </div>
-          </div>
-          <div>
-            <form onSubmit={handleSubmit(handleSignUp)} className="space-y-3">
-              <div className="space-y-2">
-                <label htmlFor="email" className="text-[14px]">
-                  Email
-                </label>
-                <input
-                  {...register("email", {
-                    required: "Can not be empty",
-                  })}
-                  className="border-2 p-1 rounded-lg w-full"
-                  type="email"
-                  name="email"
-                />
-              </div>
-              <div className="space-y-2">
-                <label htmlFor="password" className="text-[14px]">
-                  Password
-                </label>
-                <input
-                  {...register("password", {
-                    required: "Can not be empty",
-                  })}
-                  className="border-2 p-1 rounded-lg w-full"
-                  type="password"
-                  name="password"
-                />
-              </div>
-              <button className="bg-black text-white font-semibold text-sm w-full p-2 rounded-lg">
-                {loading ? "Loading..." : "Sign up"}
-              </button>
-              <div className="text-center text-sm text-gray-500">
-                Already have an account?
-                <Link className="text-gray-700" to="/login">
-                  {" "}
-                  Log in
-                </Link>
-              </div>
-            </form>
+            <div>
+              <form onSubmit={handleSubmit(handleSignUp)} className="space-y-3">
+                <div className="space-y-2">
+                  <label htmlFor="email" className="text-[14px]">
+                    Email
+                  </label>
+                  <Input
+                    type="email"
+                    name="email"
+                    {...register("email", {
+                      required: "Can not be empty",
+                    })}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label htmlFor="password" className="text-[14px]">
+                    Password
+                  </label>
+                  <PasswordInput
+                    name="password"
+                    {...register("password", {
+                      required: "Can not be empty",
+                    })}
+                  />
+                </div>
+                <div>
+                  <Link
+                    className="text-[13px] hover:underline text-gray-500"
+                    to="/forgot-password"
+                  >
+                    Forgot Password?
+                  </Link>
+                </div>
+                <button className="bg-black text-white font-semibold text-sm w-full p-2 rounded-lg">
+                  {loading ? "Loading..." : "Sign up"}
+                </button>
+                <div className="text-center text-sm text-gray-500">
+                  Already have an account?{" "}
+                  <Link className="text-gray-700" to="/login">
+                    Log in
+                  </Link>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>
-      <div className="hidden md:block relative sign-up">
-        {/* <img className="max-h-[100vh] w-full" src={iPadPro} alt="" /> */}
-        {/* <div className="absolute bottom-10 left-10 bg-black/70 backdrop-blur-sm text-white w-6/12 p-4 rounded-lg space-y-2">
-          <div>Computir</div>
-          <p className="text-xs font-extralight">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. A fugit
-            temporibus nesciunt saepe delectus eos eius fuga quas itaque
-            perspiciatis! Lorem ipsum dolor sit amet.
-          </p>
-          <p className="text-xs font-extralight">
-            <span className="text-sm font-normal">Computir, Inc.</span> Parent
-            Company of Rantir
-          </p>
-          <h2>Logos</h2>
-        </div> */}
+      <div className="hidden md:w-[45%] lg:w-[40%] overflow-hidden md:flex md:justify-end">
+        <img src={signUpBg} className="w-full h-screen" />
       </div>
     </div>
   );

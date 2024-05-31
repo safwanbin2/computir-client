@@ -6,6 +6,8 @@ import rantirBlack from "../../assets/logos/rantirBlack.svg";
 import config from "../../config";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+import { PasswordInput } from "@saas-ui/react";
+import { Input } from "@chakra-ui/react";
 
 const Signin = () => {
   const { logInWithGoogle, logInWithEmail, logInWithGithub } =
@@ -181,7 +183,7 @@ const Signin = () => {
               <label htmlFor="email" className="text-[14px]">
                 Email
               </label>
-              <input
+              <Input
                 {...register("email", {
                   required: "Can not be empty",
                 })}
@@ -194,14 +196,20 @@ const Signin = () => {
               <label htmlFor="password" className="text-[14px]">
                 Password
               </label>
-              <input
+              <PasswordInput
+                name="password"
+                {...register("password", {
+                  required: "Can not be empty",
+                })}
+              />
+              {/* <input
                 {...register("password", {
                   required: "Can not be empty",
                 })}
                 className="border-2 p-1 rounded-lg w-full"
                 type="password"
                 name="password"
-              />
+              /> */}
             </div>
             <div>
               <Link
