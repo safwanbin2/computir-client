@@ -1,5 +1,4 @@
 import { Link, NavLink } from "react-router-dom";
-import iPad from "../../../assets/iPadPro.jpg";
 import { useEffect, useState } from "react";
 
 const Navbar = () => {
@@ -40,12 +39,12 @@ const Navbar = () => {
         </div>
         <div className="flex items-center justify-between gap-5 font-semibold">
           <NavLink
-            to={"/home"}
+            to={"/drag-and-drop"}
             className={({ isActive, isPending }) =>
               `${isActive ? "text-blue-600 font-bold" : ""}`
             }
           >
-            Home
+            Drag & Drop
           </NavLink>
           <NavLink
             to={"/service"}
@@ -77,7 +76,7 @@ const Navbar = () => {
               `${isActive ? "text-blue-600 font-bold" : ""}`
             }
           >
-            Login
+            Tasks
           </NavLink>
         </div>
       </div>

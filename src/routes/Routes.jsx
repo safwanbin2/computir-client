@@ -7,6 +7,7 @@ import Contact from "../pages/contact/Contact";
 import Login from "../pages/login/Login";
 import Registration from "../pages/registration/Registration";
 import Tasks from "../pages/tasks/Tasks";
+import DragAndDrop from "../pages/dragAndDrop/DragAndDrop";
 
 export const router = createBrowserRouter([
   {
@@ -40,6 +41,10 @@ export const router = createBrowserRouter([
       {
         path: "/tasks",
         element: <Tasks />,
+      },
+      {
+        path: "/drag-and-drop",
+        element: <DragAndDrop />,
       },
     ],
   },

@@ -39,66 +39,6 @@ const Home = () => {
           Decrease
         </button>
       </div>
-      <div className="flex flex-col justify-center items-center gap-2 bg-gray-400 w-11/12 p-5">
-        <button
-          onClick={() => setCount((prev) => (prev < 5 ? prev + 1 : prev))}
-          className="bg-white text-black px-10 py-2 rounded-full font-semibold tracking-wider"
-        >
-          Increase
-        </button>
-        <h1 className="text-[50px] font-bold text-white">{count}</h1>
-        <button
-          onClick={() => setCount((prev) => (prev > 0 ? prev - 1 : prev))}
-          className="bg-red-600 text-white px-10 py-2 rounded-full font-semibold tracking-wider"
-        >
-          Decrease
-        </button>
-      </div>
-      <div className="flex flex-col justify-center items-center gap-2 bg-gray-400 w-11/12 p-5">
-        <button
-          onClick={() => setCount((prev) => (prev < 5 ? prev + 1 : prev))}
-          className="bg-white text-black px-10 py-2 rounded-full font-semibold tracking-wider"
-        >
-          Increase
-        </button>
-        <h1 className="text-[50px] font-bold text-white">{count}</h1>
-        <button
-          onClick={() => setCount((prev) => (prev > 0 ? prev - 1 : prev))}
-          className="bg-red-600 text-white px-10 py-2 rounded-full font-semibold tracking-wider"
-        >
-          Decrease
-        </button>
-      </div>
-      <div className="flex flex-col justify-center items-center gap-2 bg-gray-400 w-11/12 p-5">
-        <button
-          onClick={() => setCount((prev) => (prev < 5 ? prev + 1 : prev))}
-          className="bg-white text-black px-10 py-2 rounded-full font-semibold tracking-wider"
-        >
-          Increase
-        </button>
-        <h1 className="text-[50px] font-bold text-white">{count}</h1>
-        <button
-          onClick={() => setCount((prev) => (prev > 0 ? prev - 1 : prev))}
-          className="bg-red-600 text-white px-10 py-2 rounded-full font-semibold tracking-wider"
-        >
-          Decrease
-        </button>
-      </div>
-      <div className="flex flex-col justify-center items-center gap-2 bg-gray-400 w-11/12 p-5">
-        <button
-          onClick={() => setCount((prev) => (prev < 5 ? prev + 1 : prev))}
-          className="bg-white text-black px-10 py-2 rounded-full font-semibold tracking-wider"
-        >
-          Increase
-        </button>
-        <h1 className="text-[50px] font-bold text-white">{count}</h1>
-        <button
-          onClick={() => setCount((prev) => (prev > 0 ? prev - 1 : prev))}
-          className="bg-red-600 text-white px-10 py-2 rounded-full font-semibold tracking-wider"
-        >
-          Decrease
-        </button>
-      </div>
     </div>
   );
 };
