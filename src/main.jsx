@@ -1,18 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App.jsx";
 import "./index.css";
-import { ModalsProvider, SaasProvider } from "@saas-ui/react";
-import AuthProvider from "./contexts/AuthContext/AuthProvider.jsx";
+import { RouterProvider } from "react-router-dom";
+import { router } from "./routes/Routes.jsx";
+import { Toaster } from "sonner";
+import TaskProvider from "./context/TaskProvider.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <AuthProvider>
-      <SaasProvider>
-        <ModalsProvider>
-          <App />
-        </ModalsProvider>
-      </SaasProvider>
-    </AuthProvider>
+    <TaskProvider>
+      <RouterProvider router={router} />
+    </TaskProvider>
+    <Toaster />
   </React.StrictMode>
 );

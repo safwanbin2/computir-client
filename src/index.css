@@ -51,3 +51,14 @@ html {
 label {
   font-weight: 500;
 }
+
+.slide-up {
+  opacity: 0;
+  transform: translateY(20px); /* Start slightly lower (20px) */
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out; /* Smooth transition */
+}
+
+.slide-up-visible {
+  opacity: 1;
+  transform: translateY(0); /* Slide up to its original position */
+}
